@@ -877,7 +877,7 @@
                     <h2 data-i18n="about_title">我们专注于 <span>流程梳理</span><br>与管理效率</h2>
                     <p data-i18n="about_p1"><strong>我们是一家专注企业信息化建设的高新技术企业。</strong></p>
                     <p data-i18n="about_p2">专注于企业业务流程管理 Business Process Management，先后为多家知名企业提供咨询、开发及实施服务，并与业内顶尖BPM产品供应商达成战略合作，提供个性化服务、BPM功能设计、开发、实施、培训及支持服务。</p>
-                    <p data-i18n="about_p3">“领息”的优势在于经验丰富的人才及技术，为客户提供周全的业务流程管理解决方案及平台并实施落地。</p>
+                    <p data-i18n="about_p3">优势在于经验丰富的人才及技术，为客户提供周全的业务流程管理解决方案及平台并实施落地。</p>
                     <a href="#services" class="btn btn-primary" data-i18n="about_btn">了解更多</a>
                 </div>
                 <div class="about-image">
@@ -1063,7 +1063,7 @@
                 'about_title': '我们专注于 <span>流程梳理</span><br>与管理效率',
                 'about_p1': '<strong>我们是一家专注企业信息化建设的高新技术企业。</strong>',
                 'about_p2': '专注于企业业务流程管理 Business Process Management，先后为多家知名企业提供咨询、开发及实施服务，并与业内顶尖BPM产品供应商达成战略合作，提供个性化服务、BPM功能设计、开发、实施、培训及支持服务。',
-                'about_p3': '“领息”的优势在于经验丰富的人才及技术，为客户提供周全的业务流程管理解决方案及平台并实施落地。',
+                'about_p3': '优势在于经验丰富的人才及技术，为客户提供周全的业务流程管理解决方案及平台并实施落地。',
                 'about_btn': '了解更多',
 
                 // Services
@@ -1137,7 +1137,7 @@
                 'about_title': 'We Focus on <span>Process Optimization</span><br>& Management Efficiency',
                 'about_p1': '<strong>We are a high-tech enterprise dedicated to enterprise informatization.</strong>',
                 'about_p2': 'We specialize in Business Process Management (BPM), providing consulting, development, and implementation services to numerous renowned enterprises. We have formed strategic partnerships with top BPM product vendors to deliver personalized services, BPM functional design, development, implementation, training, and support.',
-                'about_p3': '"SysLinked" excels with its experienced talents and technology, delivering comprehensive BPM solutions and platforms to our clients.',
+                'about_p3': 'Excels with its experienced talents and technology, delivering comprehensive BPM solutions and platforms to our clients.',
                 'about_btn': 'Learn More',
 
                 // Services
@@ -1314,22 +1314,14 @@
 
         // ----- 7. 自动检测浏览器语言并设置默认语言 -----
         (function autoDetectLanguage() {
-            // 获取浏览器语言
             const browserLang = navigator.language || navigator.userLanguage || 'en-US';
-            // 判断是否为中文（包括 zh-CN, zh-TW, zh-HK 等）
             const isChinese = browserLang.startsWith('zh');
-
-            // 目标语言：中文或英文
             const targetLang = isChinese ? 'zh' : 'en';
 
-            // 等待 DOM 加载完成后切换
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                // 如果目标语言不是当前语言，则切换
                 if (targetLang !== currentLang) {
                     switchLanguage(targetLang);
                 } else {
-                    // 如果已经是目标语言，但页面标题可能还没更新（初始标题是硬编码的）
-                    // 确保标题也被正确设置
                     if (translations[targetLang] && translations[targetLang]['page_title']) {
                         document.title = translations[targetLang]['page_title'];
                     }
