@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>领息科技管理咨询 · SysLinked</title>
+    <meta name="description" content="领息科技管理咨询 - 专注企业业务流程管理BPM，提供咨询、实施、运维一站式服务">
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --primary: #274ae0;
+            --primary-dark: #1a33b0;
+            --primary-light: #eef3ff;
+            --text-dark: #1a1a2e;
+            --text-muted: #555;
+            --text-light: #777;
+            --bg-light: #f8f9fc;
+            --bg-white: #ffffff;
+            --border-color: #e8ecf4;
+            --shadow-sm: 0 4px 20px rgba(39, 74, 224, 0.08);
+            --shadow-hover: 0 8px 40px rgba(39, 74, 224, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* ===== Reset & Base ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            color: var(--text-dark);
+            background: var(--bg-white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            border: 1.5px solid var(--border-color);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(39, 74, 224, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Language Switcher ===== */
+        .lang-switcher {
+            display: flex;
+            gap: 4px;
+            margin-left: 16px;
+        }
+        .lang-switcher button {
+            background: none;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .lang-switcher button.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+        .lang-switcher button:hover {
+            color: var(--primary);
+        }
+
+        /* ===== Header ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--text-dark);
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav a {
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all var(--transition);
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .nav a.active {
+            font-weight: 600;
+        }
+
+        /* Mobile Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: all var(--transition);
+        }
+
+        /* ===== Hero (Banner) ===== */
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .hero-slide {
+            flex: 0 0 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 48px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(11, 26, 58, 0.45);
+            z-index: 0;
+        }
+
+        .hero-slides {
+            display: flex;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 640px;
+        }
+
+        .hero-content .tag {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .hero-content h1 strong {
+            color: #6d8aff;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 480px;
+            margin-bottom: 28px;
+        }
+
+        .hero-content .btn {
+            background: #fff;
+            color: var(--text-dark);
+            border: none;
+        }
+
+        .hero-content .btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* Hero dots */
+        .hero-dots {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .hero-dots button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            background: transparent;
+            cursor: pointer;
+            transition: all var(--transition);
+            padding: 0;
+        }
+
+        .hero-dots button.active {
+            background: #fff;
+            border-color: #fff;
+            transform: scale(1.15);
+        }
+
+        .hero-dots button:hover {
+            border-color: #fff;
+        }
+
+        /* ===== Section共用 ===== */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-alt {
+            background: var(--bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 56px;
+        }
+
+        .section-header .label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 17px;
+        }
+
+        .section-header .sub {
+            font-size: 18px;
+            color: var(--primary);
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        /* ===== Grid Cards ===== */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .card .icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 28px;
+            color: var(--primary);
+            transition: all var(--transition);
+        }
+
+        .card:hover .icon {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ===== About ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text .label {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .about-text h2 {
+            font-size: 34px;
+            font-weight: 700;
+            margin: 8px 0 16px;
+        }
+
+        .about-text h2 span {
+            color: var(--primary);
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .about-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            background: var(--bg-light);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-light);
+            background: linear-gradient(135deg, #eef3ff, #dce4f5);
+        }
+
+        .about-image svg {
+            max-width: 80%;
+            height: auto;
+        }
+
+        /* ===== Solutions ===== */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .solutions-text .label {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .solutions-text h2 {
+            font-size: 34px;
+            font-weight: 700;
+            margin: 8px 0 16px;
+        }
+
+        .solutions-text h2 span {
+            color: var(--primary);
+        }
+
+        .solutions-text p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .solutions-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 24px;
+        }
+
+        .solutions-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .solutions-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .solutions-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--bg-light);
+            min-height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #eef3ff, #dce4f5);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* ===== Services (领息服务) ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 30px 24px;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition);
+            text-align: left;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .service-card .icon-sm {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .service-card h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: #0d0d1a;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 48px 0 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .footer-brand h3 span {
+            color: #6d8aff;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer h4 {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer ul li {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer ul li a {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer ul li a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .footer-bottom .links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom .links a {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-bottom .links a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 992px) {
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .solutions-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            .hero-slide {
+                padding: 0 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--bg-white);
+                flex-direction: column;
+                padding: 20px 24px;
+                gap: 4px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+                transform: translateY(-120%);
+                transition: transform var(--transition);
+                border-bottom: 1px solid var(--border-color);
+            }
+            .nav.open {
+                transform: translateY(0);
+            }
+            .nav a {
+                width: 100%;
+                padding: 12px 16px;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .lang-switcher {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+            .grid-3,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .hero {
+                height: 480px;
+            }
+            .hero-content h1 {
+                font-size: 28px;
+            }
+            .hero-content p {
+                font-size: 15px;
+            }
+            .section {
+                padding: 56px 0;
+            }
+            .section-header h2 {
+                font-size: 28px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                height: 400px;
+            }
+            .hero-content h1 {
+                font-size: 24px;
+            }
+            .hero-slide {
+                padding: 0 20px;
+            }
+            .card {
+                padding: 24px 18px;
+            }
+            .service-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <img src="/images/Logo-04.png" alt="logo" style="height:44px; width:auto;">
+                <span data-i18n="brand_name">领息</span>
+            </a>
+
+            <ul class="nav" id="navMenu">
+                <li><a href="#home" class="active" data-i18n="nav_home">首页</a></li>
+                <li><a href="#services" data-i18n="nav_services">“领息”服务</a></li>
+                <li><a href="#solutions" data-i18n="nav_solutions">解决方案</a></li>
+                <li><a href="#about" data-i18n="nav_about">关于我们</a></li>
+                <li class="lang-switcher">
+                    <button id="langZh" class="active">中文</button>
+                    <button id="langEn">EN</button>
+                </li>
+            </ul>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-slides" id="heroSlides">
+            <!-- Slide 1 -->
+            <div class="hero-slide" style="background-image: url('/images/hero-1.jpg');">
+                <div class="hero-content">
+                    <span class="tag" data-i18n="hero1_tag">BPM · 企业流程管理</span>
+                    <h1 data-i18n="hero1_title">建立企业<strong>流程管理系统</strong></h1>
+                    <p data-i18n="hero1_desc">可视化您的企业，打造新一代线上管理平台</p>
+                    <a href="#solutions" class="btn" data-i18n="hero1_btn">了解详情 →</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="hero-slide" style="background-image: url('/images/hero-2.png');">
+                <div class="hero-content">
+                    <span class="tag" data-i18n="hero2_tag">数字化转型 · 效率提升</span>
+                    <h1 data-i18n="hero2_title">让管理<strong>可视 · 可溯</strong></h1>
+                    <p data-i18n="hero2_desc">将线下流程审批规则搬至线上，实现任务可追溯、可跟踪</p>
+                    <a href="#services" class="btn" data-i18n="hero2_btn">探索服务 →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-dots" id="heroDots">
+            <button class="active" data-index="0"></button>
+            <button data-index="1"></button>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="label" data-i18n="about_label">About Us</span>
+                    <h2 data-i18n="about_title">我们专注于 <span>流程梳理</span><br>与管理效率</h2>
+                    <p data-i18n="about_p1"><strong>我们是一家专注企业信息化建设的高新技术企业。</strong></p>
+                    <p data-i18n="about_p2">专注于企业业务流程管理 Business Process Management，先后为多家知名企业提供咨询、开发及实施服务，并与业内顶尖BPM产品供应商达成战略合作，提供个性化服务、BPM功能设计、开发、实施、培训及支持服务。</p>
+                    <p data-i18n="about_p3">“领息”的优势在于经验丰富的人才及技术，为客户提供周全的业务流程管理解决方案及平台并实施落地。</p>
+                    <a href="#services" class="btn btn-primary" data-i18n="about_btn">了解更多</a>
+                </div>
+                <div class="about-image">
+                    <img src="/images/about-image.png" alt="关于领息" style="width:100%; height:auto; border-radius:12px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES (领息服务) ===== -->
+    <section class="section section-alt" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="label" data-i18n="services_label">What We Offer</span>
+                <h2 data-i18n="services_title">“领息”服务</h2>
+                <span class="sub" data-i18n="services_sub">SYSLINKED SERVICES</span>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="icon-sm">📦</div>
+                    <div>
+                        <h4 data-i18n="s1_title">BPM产品提供</h4>
+                        <p data-i18n="s1_desc">提供以低代码（Low-Code）及BPM为核心的PaaS平台</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="icon-sm">☁️</div>
+                    <div>
+                        <h4 data-i18n="s2_title">云服务</h4>
+                        <p data-i18n="s2_desc">通过PaaS与IaaS深度整合，为您提供安全可靠的云服务</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="icon-sm">🎓</div>
+                    <div>
+                        <h4 data-i18n="s3_title">专业培训</h4>
+                        <p data-i18n="s3_desc">提供培训，使企业能够快速创建、优化、排障等基于平台应用</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="icon-sm">📐</div>
+                    <div>
+                        <h4 data-i18n="s4_title">方案设计</h4>
+                        <p data-i18n="s4_desc">了解客户的需求及问题，为其提供最优的解决方案</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="icon-sm">🚀</div>
+                    <div>
+                        <h4 data-i18n="s5_title">实施落地</h4>
+                        <p data-i18n="s5_desc">确认解决方案后，基于BPM应用平台为客户实施项目至成功上线</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="icon-sm">🔧</div>
+                    <div>
+                        <h4 data-i18n="s6_title">运维服务</h4>
+                        <p data-i18n="s6_desc">提供5×8小时人工技术支持服务</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOLUTIONS ===== -->
+    <section class="section" id="solutions">
+        <div class="container">
+            <div class="solutions-grid">
+                <div class="solutions-text">
+                    <span class="label" data-i18n="solutions_label">Solutions</span>
+                    <h2 data-i18n="solutions_title">我们的 <span>解决方案</span></h2>
+                    <p data-i18n="solutions_p1">基于BPM平台，为企业提供HR人力资源管理、OA办公应用、财务管理、营运管理、统一门户及系统集成管理方案、项目工程管理等解决方案。</p>
+                    <p data-i18n="solutions_p2">把线下流程审批规则搬至线上流程管理系统，从而加强企业的管理，并达到任务可追溯及可跟踪，使企业管理可视化。</p>
+                    <ul class="solutions-list">
+                        <li data-i18n="sol_li1">人力资源管理</li>
+                        <li data-i18n="sol_li2">OA办公应用</li>
+                        <li data-i18n="sol_li3">财务管理</li>
+                        <li data-i18n="sol_li4">营运管理</li>
+                        <li data-i18n="sol_li5">统一门户与集成</li>
+                        <li data-i18n="sol_li6">项目工程管理</li>
+                    </ul>
+                    <br>
+                    <a href="#" class="btn btn-primary" data-i18n="solutions_btn">查看详情 →</a>
+                </div>
+                <div class="solutions-image">
+                    <img src="/images/solution.jpg" alt="Solution" style="width:100%; height:auto; border-radius:12px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURE / CTA ===== -->
+    <section class="section section-alt" style="padding: 60px 0;">
+        <div class="container">
+            <div style="background: var(--primary); border-radius: var(--radius); padding: 48px 40px; text-align: center; color: #fff;">
+                <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 12px;" data-i18n="cta_title">我们专注于流程梳理和管理效率</h2>
+                <p style="font-size: 18px; opacity: 0.85; max-width: 560px; margin: 0 auto 24px;" data-i18n="cta_desc">专注企业流程管理平台建设，以达到更高的管理效率</p>
+                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                    <a href="#services" class="btn" style="background: #fff; color: var(--primary); border: none;" data-i18n="cta_btn1">了解服务</a>
+                    <a href="#about" class="btn" style="background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.3);" data-i18n="cta_btn2">关于我们</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 data-i18n="footer_brand">领息 <span>科技</span></h3>
+                    <p data-i18n="footer_brand_desc">领息（上海）企业管理咨询有限公司<br>专注企业流程管理BPM，提供咨询、实施、运维一站式服务</p>
+                </div>
+                <div>
+                    <h4 data-i18n="footer_contact_title">联系方式</h4>
+                    <ul>
+                        <li data-i18n="footer_address">📍 上海市松江区泗泾镇打铁桥路58号</li>
+                        <li>📞 +86 (21) 6762 6818</li>
+                        <li>📠 +86 (21) 6762 0706</li>
+                        <li>✉️ <a href="mailto:charlken.tan@syslinked.com">charlken.tan@syslinked.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer_links_title">快速链接</h4>
+                    <ul>
+                        <li><a href="#home" data-i18n="nav_home">首页</a></li>
+                        <li><a href="#services" data-i18n="nav_services">“领息”服务</a></li>
+                        <li><a href="#solutions" data-i18n="nav_solutions">解决方案</a></li>
+                        <li><a href="#about" data-i18n="nav_about">关于我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-i18n="footer_services_title">服务范围</h4>
+                    <ul>
+                        <li data-i18n="s1_title">BPM产品提供</li>
+                        <li data-i18n="s2_title">云服务</li>
+                        <li data-i18n="s3_title">专业培训</li>
+                        <li data-i18n="s4_title">方案设计与实施</li>
+                        <li data-i18n="s6_title">运维服务</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span data-i18n="footer_copyright">© 2026 领息（上海）企业管理咨询有限公司 版权所有</span>
+                <div class="links">
+                    <a href="https://beian.miit.gov.cn/" target="_blank">沪ICP备19045775号-2</a>
+                    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011702008559" target="_blank">沪公网安备 31011702008559号</a>
+                    <span class="badge">IPv6 支持</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JavaScript ===== -->
+    <script>
+        // ----- 1. 翻译数据 -----
+        const translations = {
+            zh: {
+                'page_title': '领息科技管理咨询 · SysLinked',
+                // 品牌 & 导航
+                'brand_name': '领息',
+                'nav_home': '首页',
+                'nav_services': '“领息”服务',
+                'nav_solutions': '解决方案',
+                'nav_about': '关于我们',
+
+                // Hero 第一张幻灯片
+                'hero1_tag': 'BPM · 企业流程管理',
+                'hero1_title': '建立企业<strong>流程管理系统</strong>',
+                'hero1_desc': '可视化您的企业，打造新一代线上管理平台',
+                'hero1_btn': '了解详情 →',
+
+                // Hero 第二张幻灯片
+                'hero2_tag': '数字化转型 · 效率提升',
+                'hero2_title': '让管理<strong>可视 · 可溯</strong>',
+                'hero2_desc': '将线下流程审批规则搬至线上，实现任务可追溯、可跟踪',
+                'hero2_btn': '探索服务 →',
+
+                // About
+                'about_label': 'About Us',
+                'about_title': '我们专注于 <span>流程梳理</span><br>与管理效率',
+                'about_p1': '<strong>我们是一家专注企业信息化建设的高新技术企业。</strong>',
+                'about_p2': '专注于企业业务流程管理 Business Process Management，先后为多家知名企业提供咨询、开发及实施服务，并与业内顶尖BPM产品供应商达成战略合作，提供个性化服务、BPM功能设计、开发、实施、培训及支持服务。',
+                'about_p3': '“领息”的优势在于经验丰富的人才及技术，为客户提供周全的业务流程管理解决方案及平台并实施落地。',
+                'about_btn': '了解更多',
+
+                // Services
+                'services_label': 'What We Offer',
+                'services_title': '“领息”服务',
+                'services_sub': 'SYSLINKED SERVICES',
+                's1_title': 'BPM产品提供',
+                's1_desc': '提供以低代码（Low-Code）及BPM为核心的PaaS平台',
+                's2_title': '云服务',
+                's2_desc': '通过PaaS与IaaS深度整合，为您提供安全可靠的云服务',
+                's3_title': '专业培训',
+                's3_desc': '提供培训，使企业能够快速创建、优化、排障等基于平台应用',
+                's4_title': '方案设计',
+                's4_desc': '了解客户的需求及问题，为其提供最优的解决方案',
+                's5_title': '实施落地',
+                's5_desc': '确认解决方案后，基于BPM应用平台为客户实施项目至成功上线',
+                's6_title': '运维服务',
+                's6_desc': '提供5×8小时人工技术支持服务',
+
+                // Solutions
+                'solutions_label': 'Solutions',
+                'solutions_title': '我们的 <span>解决方案</span>',
+                'solutions_p1': '基于BPM平台，为企业提供HR人力资源管理、OA办公应用、财务管理、营运管理、统一门户及系统集成管理方案、项目工程管理等解决方案。',
+                'solutions_p2': '把线下流程审批规则搬至线上流程管理系统，从而加强企业的管理，并达到任务可追溯及可跟踪，使企业管理可视化。',
+                'sol_li1': '人力资源管理',
+                'sol_li2': 'OA办公应用',
+                'sol_li3': '财务管理',
+                'sol_li4': '营运管理',
+                'sol_li5': '统一门户与集成',
+                'sol_li6': '项目工程管理',
+                'solutions_btn': '查看详情 →',
+
+                // CTA
+                'cta_title': '我们专注于流程梳理和管理效率',
+                'cta_desc': '专注企业流程管理平台建设，以达到更高的管理效率',
+                'cta_btn1': '了解服务',
+                'cta_btn2': '关于我们',
+
+                // Footer
+                'footer_brand': '领息 <span>科技</span>',
+                'footer_brand_desc': '领息（上海）企业管理咨询有限公司<br>专注企业流程管理BPM，提供咨询、实施、运维一站式服务',
+                'footer_contact_title': '联系方式',
+                'footer_address': '📍 上海市松江区泗泾镇打铁桥路58号',
+                'footer_links_title': '快速链接',
+                'footer_services_title': '服务范围',
+                'footer_copyright': '© 2026 领息（上海）企业管理咨询有限公司 版权所有',
+            },
+            en: {
+                'page_title': 'SysLinked · Management Consulting',
+                // 品牌 & 导航
+                'brand_name': 'SysLinked',
+                'nav_home': 'Home',
+                'nav_services': 'Services',
+                'nav_solutions': 'Solutions',
+                'nav_about': 'About Us',
+
+                // Hero Slide 1
+                'hero1_tag': 'BPM · Enterprise Process Management',
+                'hero1_title': 'Build Enterprise <strong>Process Management Systems</strong>',
+                'hero1_desc': 'Visualize your business and build a new-generation online management platform.',
+                'hero1_btn': 'Learn More →',
+
+                // Hero Slide 2
+                'hero2_tag': 'Digital Transformation · Efficiency',
+                'hero2_title': 'Make Management <strong>Visible & Traceable</strong>',
+                'hero2_desc': 'Move offline approval workflows online to achieve task traceability.',
+                'hero2_btn': 'Explore Services →',
+
+                // About
+                'about_label': 'About Us',
+                'about_title': 'We Focus on <span>Process Optimization</span><br>& Management Efficiency',
+                'about_p1': '<strong>We are a high-tech enterprise dedicated to enterprise informatization.</strong>',
+                'about_p2': 'We specialize in Business Process Management (BPM), providing consulting, development, and implementation services to numerous renowned enterprises. We have formed strategic partnerships with top BPM product vendors to deliver personalized services, BPM functional design, development, implementation, training, and support.',
+                'about_p3': '"SysLinked" excels with its experienced talents and technology, delivering comprehensive BPM solutions and platforms to our clients.',
+                'about_btn': 'Learn More',
+
+                // Services
+                'services_label': 'What We Offer',
+                'services_title': 'SysLinked Services',
+                'services_sub': 'SYSLINKED SERVICES',
+                's1_title': 'BPM Products',
+                's1_desc': 'Providing a PaaS platform centered on Low-Code and BPM.',
+                's2_title': 'Cloud Services',
+                's2_desc': 'Deep integration of PaaS and IaaS to offer secure and reliable cloud services.',
+                's3_title': 'Professional Training',
+                's3_desc': 'Enabling enterprises to rapidly create, optimize, and troubleshoot platform-based applications.',
+                's4_title': 'Solution Design',
+                's4_desc': 'Understanding client needs and providing optimal solutions.',
+                's5_title': 'Implementation',
+                's5_desc': 'Implementing projects on the BPM platform and ensuring successful go-live.',
+                's6_title': 'Operations & Maintenance',
+                's6_desc': 'Providing 5x8 manual technical support.',
+
+                // Solutions
+                'solutions_label': 'Solutions',
+                'solutions_title': 'Our <span>Solutions</span>',
+                'solutions_p1': 'Based on the BPM platform, we provide HR management, OA applications, financial management, operations management, unified portal, system integration, and project engineering management solutions.',
+                'solutions_p2': 'Moving offline approval workflows online to enhance management control, traceability, and visualization.',
+                'sol_li1': 'HR Management',
+                'sol_li2': 'OA Applications',
+                'sol_li3': 'Financial Management',
+                'sol_li4': 'Operations Management',
+                'sol_li5': 'Unified Portal & Integration',
+                'sol_li6': 'Project Engineering Management',
+                'solutions_btn': 'View Details →',
+
+                // CTA
+                'cta_title': 'We Focus on Process Optimization & Management Efficiency',
+                'cta_desc': 'Dedicated to building enterprise process management platforms to achieve higher efficiency.',
+                'cta_btn1': 'Learn More',
+                'cta_btn2': 'About Us',
+
+                // Footer
+                'footer_brand': 'SysLinked <span>Tech</span>',
+                'footer_brand_desc': 'SysLinked (Shanghai) Enterprise Management Consulting Co., Ltd.<br>Focusing on BPM, offering consulting, implementation, and O&M services.',
+                'footer_contact_title': 'Contact Us',
+                'footer_address': '📍 No. 58, Datieqiao Road, Sijing Town, Songjiang District, Shanghai',
+                'footer_links_title': 'Quick Links',
+                'footer_services_title': 'Our Services',
+                'footer_copyright': '© 2026 SysLinked (Shanghai) Enterprise Management Consulting Co., Ltd. All rights reserved.',
+            }
+        };
+
+        // ----- 2. 语言切换逻辑 -----
+        let currentLang = 'zh';
+
+        function switchLanguage(lang) {
+            if (!translations[lang]) return;
+            currentLang = lang;
+
+            // 更新所有带 data-i18n 属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    // 如果是 HTML 内容，使用 innerHTML
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // 更新页面标题
+            if (translations[lang]['page_title']) {
+                document.title = translations[lang]['page_title'];
+            }
+
+            // 更新 HTML lang 属性
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+            // 更新按钮激活状态
+            document.getElementById('langZh').classList.toggle('active', lang === 'zh');
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+        }
+
+        // ----- 3. 绑定语言切换按钮 -----
+        document.getElementById('langZh').addEventListener('click', () => switchLanguage('zh'));
+        document.getElementById('langEn').addEventListener('click', () => switchLanguage('en'));
+
+        // ----- 4. Mobile Menu -----
+        const toggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('navMenu');
+
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('open');
+        });
+
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('open');
+            });
+        });
+
+        // ----- 5. Hero Slider -----
+        const slides = document.getElementById('heroSlides');
+        const dots = document.querySelectorAll('#heroDots button');
+        let currentSlide = 0;
+        let autoPlayInterval = null;
+
+        function goToSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= dots.length) index = dots.length - 1;
+            currentSlide = index;
+            slides.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.dataset.index);
+                goToSlide(index);
+                resetAutoPlay();
+            });
+        });
+
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % dots.length);
+        }
+
+        function resetAutoPlay() {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+            }
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        }
+
+        resetAutoPlay();
+        const hero = document.querySelector('.hero');
+        hero.addEventListener('mouseenter', () => {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+            }
+        });
+        hero.addEventListener('mouseleave', resetAutoPlay);
+
+        // ----- 6. Smooth scroll & Active nav -----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 12;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav a:not(.lang-switcher a)');
+
+        window.addEventListener('scroll', () => {
+            let current = 'home';
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            sections.forEach(section => {
+                const top = section.offsetTop - headerHeight - 20;
+                if (window.pageYOffset >= top) {
+                    current = section.id;
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // ----- 7. 自动检测浏览器语言并设置默认语言 -----
+        (function autoDetectLanguage() {
+            // 获取浏览器语言
+            const browserLang = navigator.language || navigator.userLanguage || 'en-US';
+            // 判断是否为中文（包括 zh-CN, zh-TW, zh-HK 等）
+            const isChinese = browserLang.startsWith('zh');
+
+            // 目标语言：中文或英文
+            const targetLang = isChinese ? 'zh' : 'en';
+
+            // 等待 DOM 加载完成后切换
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                // 如果目标语言不是当前语言，则切换
+                if (targetLang !== currentLang) {
+                    switchLanguage(targetLang);
+                } else {
+                    // 如果已经是目标语言，但页面标题可能还没更新（初始标题是硬编码的）
+                    // 确保标题也被正确设置
+                    if (translations[targetLang] && translations[targetLang]['page_title']) {
+                        document.title = translations[targetLang]['page_title'];
+                    }
+                }
+            } else {
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (targetLang !== currentLang) {
+                        switchLanguage(targetLang);
+                    } else {
+                        if (translations[targetLang] && translations[targetLang]['page_title']) {
+                            document.title = translations[targetLang]['page_title'];
+                        }
+                    }
+                });
+            }
+        })();
+
+        console.log('🚀 领息科技管理咨询 · 双语版已加载');
+        console.log('📄 当前语言:', currentLang);
+        console.log('🌐 浏览器语言:', navigator.language || navigator.userLanguage);
+    </script>
+
+</body>
+</html>
